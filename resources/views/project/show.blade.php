@@ -59,6 +59,16 @@
                 </td>
               </tr>
               <tr>
+                <td style="width: 20%;">Project Date</td>
+                <td style="width: 1%;">:</td>
+                <td>
+                  @if($project->created_at)
+                    {{ date_format(date_create($project->created_at), 'Y-m-d') }}
+                  @else
+                  @endif
+                </td>
+              </tr>
+              <tr>
                 <td style="width: 20%;">Sales Name</td>
                 <td style="width: 1%;">:</td>
                 <td>
@@ -68,16 +78,7 @@
                   @endif
                 </td>
               </tr>
-              <tr>
-                <td style="width: 20%;">Created Date</td>
-                <td style="width: 1%;">:</td>
-                <td>
-                  @if($project->created_at)
-                    {{ date_format(date_create($project->created_at), 'Y-m-d') }}
-                  @else
-                  @endif
-                </td>
-              </tr>
+              
               <tr>
                 <td style="width: 20%;">Status</td>
                 <td style="width: 1%;">:</td>

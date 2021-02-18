@@ -4,6 +4,10 @@
     Project
 @endsection
 
+@section('additional_styles')
+  {!! Html::style('css/datepicker/datepicker3.css') !!}
+@endsection
+
 @section('page_header')
   <h1>
     Project
@@ -44,7 +48,7 @@
           <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
             {!! Form::label('code', 'Project code', ['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-              {!! Form::text('code',null,['class'=>'form-control', 'placeholder'=>'Project code', 'id'=>'code', 'disabled'=>true]) !!}
+              {!! Form::text('code',null,['class'=>'form-control', 'placeholder'=>'Project code', 'id'=>'code']) !!}
               @if ($errors->has('code'))
                 <span class="help-block">
                   <strong>{{ $errors->first('code') }}</strong>
@@ -73,7 +77,18 @@
                 </span>
               @endif
             </div>
-          </div> 
+          </div>
+          <div class="form-group{{ $errors->has('created_at') ? ' has-error' : '' }}">
+            {!! Form::label('created_at', 'Project Date', ['class'=>'col-sm-2 control-label']) !!}
+            <div class="col-sm-10">
+              {!!Form::text('created_at',null,['class'=>'form-control', 'placeholder'=>'Project Date', 'id'=>'created_at'])!!}
+              @if ($errors->has('created_at'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('created_at') }}</strong>
+                </span>
+              @endif
+            </div>
+          </div>
           <div class="form-group{{ $errors->has('sales_id') ? ' has-error' : '' }}">
             {!! Form::label('sales_id', 'Sales', ['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
@@ -107,6 +122,7 @@
 @endsection
 
 @section('additional_scripts')
+  {!! Html::script('js/datepicker/bootstrap-datepicker.js') !!}
   <script type="text/javascript">
 
     //Block purchase order customer selection
@@ -167,14 +183,14 @@
     {
       var category = $('#category').val();
       if(category == 'internal'){
-        $('#code').prop('disabled', false);
+        
         $('#sales_id').val('');
         $('#sales_name').val('');
         $('#purchase_order_customer_id').val('').trigger('change');
         $('#purchase_order_customer_id').prop('disabled', true);
       }
       else{
-        $('#code').prop('disabled', true);
+        
         $('#purchase_order_customer_id').prop('disabled', false);
       }
     }
@@ -183,5 +199,14 @@
       check_category();
     });
     check_category();
+
+    //Block Due Date input
+    $('#created_at').on('keydown', function(event){
+      event.preventDefault();
+    });
+    $('#created_at').datepicker({
+      format : 'yyyy-mm-dd'
+    });
+    //ENDBlock Due Date input
 </script>
 @endsection

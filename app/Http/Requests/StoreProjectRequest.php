@@ -25,7 +25,7 @@ class StoreProjectRequest extends Request
     {
          $rules =  [
             'category'=>'required',
-            'code'=>'required_if:category,internal',
+            'code'=>'required|unique:projects,code',
             'name'=>'required',
             //'purchase_order_customer_id'=>'required_if:category,external|integer|exists:purchase_order_customers,id|unique:projects,purchase_order_customer_id',
             //'sales_id'=>'required_if:category,external|integer|exists:users,id'

@@ -25,7 +25,7 @@ class UpdateProjectRequest extends Request
     {
         return [
             'category'=>'required',
-            'code'=>'required_if:category,internal',
+            'code'=>'required|unique:projects,code,'.$this->segment(2),
             'name'=>'required',
             'purchase_order_customer_id'=>'required_if:category,external|integer|unique:projects,purchase_order_customer_id,'.$this->segment(2),
             'sales_id'=>'required_if:category,external|integer|exists:users,id'

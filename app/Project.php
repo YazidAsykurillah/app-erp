@@ -16,7 +16,7 @@ class Project extends Model
 {
     protected $table = 'projects';
 
-    protected $fillable = ['category','code', 'name', 'purchase_order_customer_id', 'sales_id', 'enabled'];
+    protected $fillable = ['category','code', 'name', 'purchase_order_customer_id', 'sales_id', 'enabled', 'created_at'];
 
     protected $appends = ['cost_margin', 'invoiced', 'estimated_cost_margin', 'customer', 'man_hour_information'];
 

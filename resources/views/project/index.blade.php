@@ -78,7 +78,7 @@
                       <th>Pending Invoice amount</th>
                       <th>Paid Invoice amount</th>
                       <th>Margin</th>
-                      <th>Created Date</th>
+                      <th>Project Date</th>
                       <th>Status</th>
                       <th style="width:10%;text-align:center;">Actions</th>
                     </tr>

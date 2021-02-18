@@ -53,32 +53,14 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $current_year = date('Y');
-        $yearify = substr($current_year, -2);
-
-        $next_project_code = "";
-        if($request->category == "internal"){
-            $next_project_code = trim(trim($request->code));
-        }
-        else{
-            //Block build next project code
-            $count_project_id = \DB::table('projects')->where('created_at', 'like', "%$current_year%")->where('code','like',"%P-%")->count();
-            if($count_project_id > 0){
-                $max = \DB::table('projects')->where('category', '=', 'external')->max('code');
-                $int_max = ltrim(substr($max, -3), '0');
-                $next_project_code = "P-".$yearify."-".str_pad(($int_max+1), 5, 0, STR_PAD_LEFT);
-            }
-            else{
-               $next_project_code = "P-".$yearify."-".str_pad(1, 5, 0, STR_PAD_LEFT);
-            }
-            //ENDBlock build next project code
-        }
+        
         $project = new Project;
         $project->category = $request->category;
-        $project->code = $next_project_code;
+        $project->code = $request->code;
         $project->name = $request->name;
         $project->purchase_order_customer_id = $request->purchase_order_customer_id;
         $project->sales_id = $request->sales_id;
+        $project->created_at = $request->created_at;
         $store = $project->save();
 
         if($store){
@@ -199,10 +181,9 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, $id)
     {
         $project = Project::findOrFail($id);
-        if($project->category == 'internal'){
-            $project->code = $request->code;
-        }
+        $project->code = $request->code;
         $project->name = $request->name;
+        $project->created_at = $request->created_at;
         $project->purchase_order_customer_id = $request->purchase_order_customer_id;
         $project->sales_id = $request->sales_id;
         $project->enabled = $request->enabled;
